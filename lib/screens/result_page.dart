@@ -1,9 +1,19 @@
-import 'file:///C:/allFlutterProject/bmi_calculator/lib/components/bottom_button.dart';
+import 'package:bmicalculator/components/bottom_button.dart';
+import 'package:bmicalculator/components/reusable_card.dart';
 import 'package:bmicalculator/constants.dart';
-import 'file:///C:/allFlutterProject/bmi_calculator/lib/components/reusable_card.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class ResultPage extends StatefulWidget {
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
+
+  ResultPage(
+      {@required this.bmiResult,
+      @required this.resultText,
+      @required this.interpretation});
+
   @override
   _ResultPageState createState() => _ResultPageState();
 }
@@ -17,9 +27,21 @@ class _ResultPageState extends State<ResultPage> {
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Icon(Icons.share),
+            child: TextButton(
+              onPressed: () {
+                final RenderBox box = context.findRenderObject();
+                Share.share(
+                    this.widget.bmiResult.toString() + ' this is my BMI result',
+                    subject: 'BMI Calculator - edyco',
+                    sharePositionOrigin:
+                        box.localToGlobal(Offset.zero) & box.size);
+              },
+              child: Text(
+                'Share',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ],
@@ -46,19 +68,19 @@ class _ResultPageState extends State<ResultPage> {
                 children: [
                   Center(
                     child: Text(
-                      'Normal',
+                      this.widget.resultText,
                       style: kResultTextStyle,
                     ),
                   ),
                   Center(
                     child: Text(
-                      '34.8',
+                      this.widget.bmiResult,
                       style: kBMITextStyle,
                     ),
                   ),
                   Center(
                     child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eleifend turpis nec erat pretium tempor. ',
+                      this.widget.interpretation,
                       textAlign: TextAlign.center,
                       style: kBodyTextStyle,
                     ),

@@ -12,6 +12,7 @@ class BMICalculator extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
           primaryColor: Color(0XFF0A0E21),
+          accentColor: Color(0XFFEB1555),
           scaffoldBackgroundColor: Color(0XFF0A0E21),
           sliderTheme: SliderTheme.of(context).copyWith(
               inactiveTrackColor: Color(0XFF8D8E98),

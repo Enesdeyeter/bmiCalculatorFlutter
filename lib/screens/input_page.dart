@@ -1,12 +1,13 @@
-import 'file:///C:/allFlutterProject/bmi_calculator/lib/components/bottom_button.dart';
-import 'file:///C:/allFlutterProject/bmi_calculator/lib/screens/result_page.dart';
 import 'package:bmicalculator/components/RoundIconButton.dart';
+import 'package:bmicalculator/components/bottom_button.dart';
+import 'package:bmicalculator/components/icon_content.dart';
+import 'package:bmicalculator/components/reusable_card.dart';
+import 'package:bmicalculator/screens/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'file:///C:/allFlutterProject/bmi_calculator/lib/components/icon_content.dart';
-import 'file:///C:/allFlutterProject/bmi_calculator/lib/components/reusable_card.dart';
 import 'package:bmicalculator/constants.dart';
 import 'settings_page.dart';
+import 'package:bmicalculator/calculator_brain.dart';
 
 enum Gender { Male, Female }
 
@@ -219,9 +220,18 @@ class _InputPageState extends State<InputPage> {
         BottomButton(
           buttonTitle: 'Calculate',
           onPress: () {
+            CalculatorBrain calc =
+                new CalculatorBrain(height: height, weight: weight);
+
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ResultPage()),
+              MaterialPageRoute(
+                builder: (context) => ResultPage(
+                  bmiResult: calc.calculateBMI(),
+                  resultText: calc.getResult(),
+                  interpretation: calc.getInterpretation(),
+                ),
+              ),
             );
           },
         ),
